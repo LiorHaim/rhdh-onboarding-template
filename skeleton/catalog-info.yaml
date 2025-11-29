@@ -8,8 +8,9 @@ metadata:
   {%- endif %}
   annotations:
     # Kubernetes Integration
-    # Defaults to component name if not specified in the form
+    {%- if values.kubernetesId %}
     backstage.io/kubernetes-id: ${{ values.kubernetesId }}
+    {%- endif %}
 
     # Jira Integration
     {%- if values.jiraProjectKey %}
