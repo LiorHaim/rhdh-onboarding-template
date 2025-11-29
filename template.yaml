@@ -62,7 +62,6 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
-              - gitlab.com
               - gitlab.example.com
             requestUserCredentials:
               secretsKey: USER_OAUTH_TOKEN
