@@ -24,16 +24,16 @@ Instead of scaffolding new code, this template uses the `RepoUrlPicker` to let d
 - **Security**: It uses the user's own token to list only repositories they have permission to access.
 - **Convenience**: No copy-pasting URLs manually.
 
-### 2. Smart Defaults
+### 2. Flexible Integrations (Everything is Optional)
+We understand not every service uses every tool.
+- **Kubernetes**: If the service has no workloads yet, leave the ID empty.
+- **Jira/ArgoCD/JFrog**: Only fill these if they exist.
+- The resulting `catalog-info.yaml` will be clean, containing *only* the annotations for the tools actually used.
+
+### 3. Smart Defaults
 We reduce friction by calculating defaults where possible:
-- **Kubernetes ID**: Defaults to the Component Name if left empty (since they usually match).
 - **Lifecycle**: Defaults to `production`.
 - **Merge Request**: The change is proposed via a Merge Request (created by the RHDH bot), allowing the team to review the metadata before it becomes "standard".
-
-### 3. Conditional Integrations
-The template is flexible. It does not force every tool on every user.
-- If a team doesn't use ArgoCD, they leave it blank.
-- The resulting `catalog-info.yaml` is clean, containing *only* the annotations for the tools they actually use.
 
 ## 📂 Repository Structure
 
@@ -47,6 +47,6 @@ The template is flexible. It does not force every tool on every user.
 ## 🛠 Usage Flow
 
 1.  **Developer Action**: Logs into RHDH, clicks **"Onboard Existing Service"**.
-2.  **Selection**: Picks their repo and fills in the integration "blanks" (Jira key, Argo app name, etc.).
-3.  **Automation**: RHDH generates a Pull Request with a perfectly formatted `catalog-info.yaml`.
-4.  **Completion**: The developer merges the PR. RHDH Auto-Discovery picks it up, and the service appears in the Catalog with all plugins (CI/CD, Kubernetes, etc.) lighting up immediately.
+2.  **Selection**: Picks their repo and fills in the integration "blanks" (Jira key, Argo app name, etc.). **All integration fields are optional.**
+3.  **Automation**: RHDH generates a Merge Request with a perfectly formatted `catalog-info.yaml`.
+4.  **Completion**: The developer merges the MR. RHDH Auto-Discovery picks it up, and the service appears in the Catalog with all plugins (CI/CD, Kubernetes, etc.) lighting up immediately.
