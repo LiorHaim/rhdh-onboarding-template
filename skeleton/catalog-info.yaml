@@ -1,0 +1,37 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ values.componentName }}
+  title: ${{ values.componentName }}
+  {%- if values.description %}
+  description: ${{ values.description }}
+  {%- endif %}
+  annotations:
+    # Kubernetes Integration
+    # Defaults to component name if not specified in the form
+    backstage.io/kubernetes-id: ${{ values.kubernetesId }}
+
+    # Jira Integration
+    {%- if values.jiraProjectKey %}
+    jira/project-key: ${{ values.jiraProjectKey }}
+    {%- endif %}
+
+    # JFrog Artifactory Integration
+    {%- if values.jfrogImage %}
+    jfrog-artifactory/image-name: ${{ values.jfrogImage }}
+    {%- endif %}
+
+    # ArgoCD Integration
+    {%- if values.argocdAppName %}
+    argocd/app-name: ${{ values.argocdAppName }}
+    {%- endif %}
+    {%- if values.argocdAppSelector %}
+    argocd/app-selector: ${{ values.argocdAppSelector }}
+    {%- endif %}
+  
+  tags:
+    - on-boarded
+spec:
+  type: service
+  lifecycle: ${{ values.lifecycle }}
+  owner: ${{ values.owner }}
