@@ -74,8 +74,9 @@ spec:
           type: string
           description: Link to Kubernetes resources.
           ui:help: |
-             The value of the `backstage.io/kubernetes-id` label on your resources.
-             **Leave empty** to default to the Component Name.
+             The value of the `backstage.io/kubernetes-id` label.
+             **Leave empty** if this service has no Kubernetes workloads.
+             Often matches the Component Name.
         
         jiraProjectKey:
           title: Jira Project Key
@@ -113,8 +114,8 @@ spec:
           owner: ${{ parameters.owner }}
           lifecycle: ${{ parameters.lifecycle }}
           repoUrl: ${{ parameters.repoUrl }}
-          # Logic: If kubernetesId is empty, default to componentName
-          kubernetesId: ${{ parameters.kubernetesId or parameters.componentName }}
+          # Logic: Pass the raw value. If empty, the skeleton will skip the annotation.
+          kubernetesId: ${{ parameters.kubernetesId }}
           jiraProjectKey: ${{ parameters.jiraProjectKey }}
           jfrogImage: ${{ parameters.jfrogImage }}
           argocdAppName: ${{ parameters.argocdAppName }}
@@ -133,7 +134,7 @@ spec:
           **Configuration:**
           - Component: `${{ parameters.componentName }}`
           - Owner: `${{ parameters.owner }}`
-          - Kubernetes ID: `${{ parameters.kubernetesId or parameters.componentName }}`
+          - Kubernetes ID: `${{ parameters.kubernetesId if parameters.kubernetesId else "N/A" }}`
           
           **Next Steps:**
           1. Review the changes.
