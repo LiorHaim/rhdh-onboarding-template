@@ -62,9 +62,48 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
+              - gitlab.com
               - gitlab.example.com
             requestUserCredentials:
               secretsKey: USER_OAUTH_TOKEN
+
+    - title: API Configuration (Optional)
+      properties:
+        registerApi:
+          title: Register API?
+          type: boolean
+          default: false
+          description: "Check this if your service exposes an API (OpenAPI, GraphQL, etc.) you want to register in RHDH."
+        
+        apiType:
+          title: API Type
+          type: string
+          default: openapi
+          enum:
+            - openapi
+            - asyncapi
+            - graphql
+            - grpc
+          description: "The type of API definition."
+        
+        apiPath:
+          title: API Definition Path
+          type: string
+          description: "Path to the API definition file in your repo (e.g., openapi/spec.yaml)."
+          ui:help: "Relative path from the repository root to your spec file."
+
+      dependencies:
+        registerApi:
+          oneOf:
+            - properties:
+                registerApi:
+                  const: false
+            - properties:
+                registerApi:
+                  const: true
+              required:
+                - apiType
+                - apiPath
 
     - title: Integrations (Optional)
       properties:
@@ -113,6 +152,10 @@ spec:
           owner: ${{ parameters.owner }}
           lifecycle: ${{ parameters.lifecycle }}
           repoUrl: ${{ parameters.repoUrl }}
+          # API Configuration
+          registerApi: ${{ parameters.registerApi }}
+          apiType: ${{ parameters.apiType }}
+          apiPath: ${{ parameters.apiPath }}
           # Logic: Pass the raw value. If empty, the skeleton will skip the annotation.
           kubernetesId: ${{ parameters.kubernetesId }}
           jiraProjectKey: ${{ parameters.jiraProjectKey }}
