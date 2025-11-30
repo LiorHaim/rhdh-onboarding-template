@@ -36,3 +36,25 @@ spec:
   type: service
   lifecycle: ${{ values.lifecycle }}
   owner: ${{ values.owner }}
+  {%- if values.registerApi %}
+  providesApis:
+    - ${{ values.componentName }}-api
+  {%- endif %}
+
+{%- if values.registerApi %}
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: ${{ values.componentName }}-api
+  title: ${{ values.componentName }} API
+  description: API definition for ${{ values.componentName }}
+  tags:
+    - on-boarded
+spec:
+  type: ${{ values.apiType }}
+  lifecycle: ${{ values.lifecycle }}
+  owner: ${{ values.owner }}
+  definition:
+    $text: ${{ values.apiPath }}
+{%- endif %}
