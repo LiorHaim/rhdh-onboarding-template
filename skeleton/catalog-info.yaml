@@ -41,7 +41,7 @@ spec:
     - ${{ values.componentName }}-api
   {%- endif %}
 
-{%- if values.registerApi %}
+{% if values.registerApi -%}
 ---
 apiVersion: backstage.io/v1alpha1
 kind: API
