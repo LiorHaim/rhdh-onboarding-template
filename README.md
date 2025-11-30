@@ -16,6 +16,7 @@ This template provides a seamless "wizard" experience that:
     *   **Jira** (Issues)
     *   **JFrog** (Artifacts)
     *   **ArgoCD** (GitOps)
+    *   **APIs** (OpenAPI, GraphQL, etc.)
 
 ## ✨ Features & User Experience
 
@@ -28,6 +29,7 @@ Instead of scaffolding new code, this template uses the `RepoUrlPicker` to let d
 We understand not every service uses every tool.
 - **Kubernetes**: If the service has no workloads yet, leave the ID empty.
 - **Jira/ArgoCD/JFrog**: Only fill these if they exist.
+- **APIs**: Users can choose to register an API (OpenAPI/Swagger, GraphQL, etc.) by simply pointing to the definition file path in the repo.
 - The resulting `catalog-info.yaml` will be clean, containing *only* the annotations for the tools actually used.
 
 ### 3. Smart Defaults
