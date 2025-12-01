@@ -34,6 +34,7 @@ spec:
           type: string
           description: A short description of what this service does.
           maxLength: 150
+          ui:widget: textarea
           ui:help: "Keep it under 150 characters for better visibility in the Catalog."
         
         owner:
@@ -45,6 +46,15 @@ spec:
             catalogFilter:
               kind: [Group, User]
 
+        system:
+          title: System
+          type: string
+          description: The system this component belongs to.
+          ui:field: EntityPicker
+          ui:options:
+            catalogFilter:
+              kind: System
+
         lifecycle:
           title: Lifecycle
           type: string
@@ -54,6 +64,14 @@ spec:
             - production
             - experimental
             - deprecated
+
+        tags:
+          title: Tags
+          type: array
+          description: Add tags to categorize this service.
+          ui:field: EntityTagsPicker
+          items:
+            type: string
 
     - title: Repository Location
       required:
@@ -154,6 +172,8 @@ spec:
           componentName: ${{ parameters.componentName }}
           description: ${{ parameters.description }}
           owner: ${{ parameters.owner }}
+          system: ${{ parameters.system }}
+          tags: ${{ parameters.tags }}
           lifecycle: ${{ parameters.lifecycle }}
           repoUrl: ${{ parameters.repoUrl }}
           # API Configuration
@@ -180,6 +200,7 @@ spec:
           **Configuration:**
           - Component: `${{ parameters.componentName }}`
           - Owner: `${{ parameters.owner }}`
+          - System: `${{ parameters.system if parameters.system else "None" }}`
           - OpenShift Resources: `${{ parameters.kubernetesId if parameters.kubernetesId else "N/A" }}`
           
           **Next Steps:**
