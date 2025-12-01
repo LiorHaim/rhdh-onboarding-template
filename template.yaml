@@ -199,10 +199,21 @@ spec:
           This MR adds the `catalog-info.yaml` file to onboard this service to Red Hat Developer Hub.
           
           **Configuration:**
-          - Component: `${{ parameters.componentName }}`
-          - Owner: `${{ parameters.owner }}`
-          - System: `${{ parameters.system if parameters.system else "None" }}`
-          - OpenShift Resources: `${{ parameters.kubernetesId if parameters.kubernetesId else "N/A" }}`
+          - **Component:** `${{ parameters.componentName }}`
+          - **Owner:** `${{ parameters.owner }}`
+          - **System:** `${{ parameters.system if parameters.system else "None" }}`
+          - **Lifecycle:** `${{ parameters.lifecycle }}`
+          - **Tags:** `${{ parameters.tags | join(', ') if parameters.tags else "None" }}`
+          
+          **API:**
+          - Register API: `${{ "Yes" if parameters.registerApi else "No" }}`
+          ${{ "- Type: " + parameters.apiType + "\n          - Path: " + parameters.apiPath if parameters.registerApi else "" }}
+          **Integrations:**
+          - **OpenShift Resources:** `${{ parameters.kubernetesId if parameters.kubernetesId else "N/A" }}`
+          - **Jira:** `${{ parameters.jiraProjectKey if parameters.jiraProjectKey else "N/A" }}`
+          - **JFrog:** `${{ parameters.jfrogImage if parameters.jfrogImage else "N/A" }}`
+          - **ArgoCD App:** `${{ parameters.argocdAppName if parameters.argocdAppName else "N/A" }}`
+          - **ArgoCD Selector:** `${{ parameters.argocdAppSelector if parameters.argocdAppSelector else "N/A" }}`
           
           **Next Steps:**
           1. Review the changes.
@@ -212,8 +223,8 @@ spec:
   output:
     links:
       - title: Open Merge Request
-        url: ${{ steps['create-mr'].output.remoteUrl }}
+        url: ${{ steps['create-mr'].output.mergeRequestUrl }}
       - title: Open Repository
-        url: ${{ parameters.repoUrl }}
+        url: https://${{ parameters.repoUrl | replace("gitlab.com?owner=", "gitlab.com/") | replace("&repo=", "/") }}
       - title: Back to Catalog
         url: /catalog
