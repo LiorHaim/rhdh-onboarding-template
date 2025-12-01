@@ -15,7 +15,6 @@ spec:
   parameters:
     - title: Service Details
       required:
-        - repoUrl
         - componentName
         - owner
         - lifecycle
@@ -25,9 +24,10 @@ spec:
           type: string
           description: Unique name for this service in the catalog (e.g. 'payment-service').
           ui:autofocus: true
+          maxLength: 40
           # Enforce K8s-style naming
           pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
-          ui:help: "Must be lowercase, alphanumeric, with dashes only (e.g. my-service)."
+          ui:help: "Must be lowercase, alphanumeric, with dashes only. Max 40 characters."
         
         description:
           title: Description
@@ -55,6 +55,10 @@ spec:
             - experimental
             - deprecated
 
+    - title: Repository Location
+      required:
+        - repoUrl
+      properties:
         repoUrl:
           title: Repository Location
           type: string
@@ -108,12 +112,12 @@ spec:
     - title: Integrations (Optional)
       properties:
         kubernetesId:
-          title: Kubernetes ID
+          title: OpenShift Resources
           type: string
-          description: Link to Kubernetes resources.
+          description: Link to OpenShift resources.
           ui:help: |
              The value of the `backstage.io/kubernetes-id` label.
-             **Leave empty** if this service has no Kubernetes workloads.
+             **Leave empty** if this service has no OpenShift workloads.
              Often matches the Component Name.
         
         jiraProjectKey:
@@ -176,7 +180,7 @@ spec:
           **Configuration:**
           - Component: `${{ parameters.componentName }}`
           - Owner: `${{ parameters.owner }}`
-          - Kubernetes ID: `${{ parameters.kubernetesId if parameters.kubernetesId else "N/A" }}`
+          - OpenShift Resources: `${{ parameters.kubernetesId if parameters.kubernetesId else "N/A" }}`
           
           **Next Steps:**
           1. Review the changes.
