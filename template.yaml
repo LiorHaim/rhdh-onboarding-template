@@ -9,7 +9,7 @@ metadata:
     - gitlab
     - onboarding
 spec:
-  owner: platform-engineering
+  owner: rhdh-team
   type: service
 
   parameters:
