@@ -213,3 +213,7 @@ spec:
     links:
       - title: Open Merge Request
         url: ${{ steps['create-mr'].output.remoteUrl }}
+      - title: Open Repository
+        url: ${{ parameters.repoUrl }}
+      - title: Back to Catalog
+        url: /catalog
