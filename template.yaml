@@ -88,6 +88,7 @@ spec:
               - gitlab.example.com
             requestUserCredentials:
               secretsKey: USER_OAUTH_TOKEN
+          ui:help: "Owner is the Group or Username (e.g. 'my-org'). Repository is the project name (e.g. 'service-a')."
 
     - title: API Configuration (Optional)
       properties:
@@ -207,7 +208,6 @@ spec:
           1. Review the changes.
           2. Merge this request.
           3. Verify the service appears in RHDH.
-        commitMessage: "Add catalog-info.yaml for RHDH onboarding"
 
   output:
     links:
