@@ -8,12 +8,10 @@ metadata:
   {%- endif %}
   annotations:
     # GitLab Integration
-    # We assume repoSlug is passed pre-calculated (e.g. "gitlab.com/mygroup/myproject" or just "mygroup/myproject")
-    # But based on our logic, repoSlug passed from template is "host/group/project".
-    # The plugin expects "group/project".
     gitlab.com/project-slug: ${{ values.repoSlug | replace(values.repoHost + "/", "") }}
     
-    {%- if "gitlab.com" not in values.repoHost %}
+    # We use standard string comparison instead of 'in' operator to avoid type errors
+    {%- if values.repoHost != "gitlab.com" %}
     gitlab.com/instance: ${{ values.repoHost }}
     {%- endif %}
 
