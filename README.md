@@ -27,12 +27,18 @@ Instead of scaffolding new code, this template uses the `RepoUrlPicker` to let d
 
 ### 2. Flexible Integrations (Everything is Optional)
 We understand not every service uses every tool.
-- **Kubernetes**: If the service has no workloads yet, leave the ID empty.
+- **OpenShift Resources**: Explicitly links services via the `backstage.io/kubernetes-id` label selector.
 - **Jira/ArgoCD/JFrog**: Only fill these if they exist.
 - **APIs**: Users can choose to register an API (OpenAPI/Swagger, GraphQL, etc.) by simply pointing to the definition file path in the repo.
 - The resulting `catalog-info.yaml` will be clean, containing *only* the annotations for the tools actually used.
 
-### 3. Smart Defaults
+### 3. Rich Metadata Support
+To keep the Catalog organized, we support:
+- **System**: Assign the component to a System immediately.
+- **Tags**: Add custom tags (e.g. `java`, `frontend`) during onboarding.
+- **Ownership**: Select the owning Group or User from the Catalog.
+
+### 4. Smart Defaults
 We reduce friction by calculating defaults where possible:
 - **Lifecycle**: Defaults to `production`.
 - **Merge Request**: The change is proposed via a Merge Request (created by the RHDH bot), allowing the team to review the metadata before it becomes "standard".
