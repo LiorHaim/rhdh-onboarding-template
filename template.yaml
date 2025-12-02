@@ -162,19 +162,6 @@ spec:
           ui:help: "Use this to match multiple apps (e.g. `app.kubernetes.io/name=my-service`)."
 
   steps:
-    # 1. Parse the repo URL (Standard in Backstage since 2023, but some older versions might lack it)
-    # If this fails, we might need a different strategy. But this is the cleanest way.
-    - id: parse-url
-      name: Parse Repository URL
-      action: debug:log
-      input:
-        message: "Parsing URL: ${{ parameters.repoUrl }}"
-        # We use a dummy step to log, but actually we rely on the fact that
-        # `parseRepoUrl` filter is available in the Nunjucks context for the next step.
-        # Wait, we can't use filters outside of expressions.
-        # Let's try to use the built-in 'roadiehq:utils:parse-url' if available, OR just use the 'replace' strategy but careful with syntax.
-        # Actually, let's use the REGEX again but with simpler syntax that definitely works in Nunjucks.
-        
     - id: fetch-base
       name: Render Catalog Info
       action: fetch:template
@@ -189,17 +176,12 @@ spec:
           lifecycle: ${{ parameters.lifecycle }}
           repoUrl: ${{ parameters.repoUrl }}
           
-          # Safe Parsing Strategy using 'replace' with simple strings (no regex literal syntax)
-          # The RepoUrlPicker output is consistently: HOST?owner=OWNER&repo=REPO
+          # Since the host is FIXED, we can just strip it using the known string
+          # RepoUrlPicker output for this host: gitlab-gitlab.apps.cluster-9fvs8.dynamic.redhatworkshops.io?owner=O&repo=R
+          # We just need to strip the host and convert the query params.
           
-          # 1. Get Host: Replace everything starting from ? with empty string
-          # Note: Nunjucks 'replace' takes a RegEx object or string. In YAML, we pass a string.
-          # We must escape the backslash for YAML, so it becomes \\?
-          repoHost: ${{ parameters.repoUrl | replace("\\?.*", "") }}
-
-          # 2. Get Slug: Remove the host part (regex) and then clean up the rest.
-          # We replace everything up to '?owner=' with empty.
-          repoSlug: ${{ parameters.repoUrl | replace("^.*\\?owner=", "") | replace("&repo=", "/") }}
+          # 1. Remove the host part
+          repoSlug: ${{ parameters.repoUrl | replace("gitlab-gitlab.apps.cluster-9fvs8.dynamic.redhatworkshops.io?owner=", "") | replace("&repo=", "/") }}
           
           # API Configuration
           registerApi: ${{ parameters.registerApi }}
@@ -249,7 +231,6 @@ spec:
       - title: Open Merge Request
         url: ${{ steps['create-mr'].output.mergeRequestUrl }}
       - title: Open Repository
-        # We use the same replace logic here for consistency
         url: https://${{ parameters.repoUrl | replace("?owner=", "/") | replace("&repo=", "/") }}
       - title: Back to Catalog
         url: /catalog
