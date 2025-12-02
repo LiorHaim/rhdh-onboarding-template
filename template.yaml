@@ -177,9 +177,12 @@ spec:
           tags: ${{ parameters.tags }}
           lifecycle: ${{ parameters.lifecycle }}
           repoUrl: ${{ parameters.repoUrl }}
-          # We must pass pre-calculated values to the skeleton because Nunjucks 'split' is not standard
-          repoSlug: ${{ parameters.repoUrl | replace("?owner=", "/") | replace("&repo=", "/") }}
-          repoHost: ${{ parameters.repoUrl | replace("?.*", "") }}
+          # Fix logic: 
+          # repoUrl = "host.com?owner=foo&repo=bar"
+          # repoSlug should be "foo/bar"
+          # repoHost should be "host.com"
+          repoSlug: ${{ parameters.repoUrl | replace("?owner=", "/") | replace("&repo=", "/") | split("/") | slice(1) | join("/") }}
+          repoHost: ${{ parameters.repoUrl | split("?") | first }}
           # API Configuration
           registerApi: ${{ parameters.registerApi }}
           apiType: ${{ parameters.apiType }}
