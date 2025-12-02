@@ -7,6 +7,12 @@ metadata:
   description: ${{ values.description }}
   {%- endif %}
   annotations:
+    # GitLab Integration
+    gitlab.com/project-slug: ${{ values.repoUrl | replace("?owner=", "/") | replace("&repo=", "/") | split("gitlab.com/") | last | split("/") | list | slice(1) | join("/") if "gitlab.com" in values.repoUrl else values.repoUrl | replace("?owner=", "/") | replace("&repo=", "/") | split("/") | slice(-2) | join("/") }}
+    {%- if "gitlab.com" not in values.repoUrl %}
+    gitlab.com/instance: ${{ values.repoUrl | split("?") | first }}
+    {%- endif %}
+
     # Kubernetes Integration
     {%- if values.kubernetesId %}
     backstage.io/kubernetes-id: ${{ values.kubernetesId }}
