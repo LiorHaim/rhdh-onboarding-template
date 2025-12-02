@@ -176,11 +176,9 @@ spec:
           lifecycle: ${{ parameters.lifecycle }}
           repoUrl: ${{ parameters.repoUrl }}
           
-          # Since the host is FIXED, we can just strip it using the known string
-          # RepoUrlPicker output for this host: gitlab-gitlab.apps.cluster-9fvs8.dynamic.redhatworkshops.io?owner=O&repo=R
-          # We just need to strip the host and convert the query params.
+         
           
-          # 1. Remove the host part
+          # Remove the host part and get the slug
           repoSlug: ${{ parameters.repoUrl | replace("gitlab-gitlab.apps.cluster-9fvs8.dynamic.redhatworkshops.io?owner=", "") | replace("&repo=", "/") }}
           
           # API Configuration
