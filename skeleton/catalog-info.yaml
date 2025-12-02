@@ -10,10 +10,6 @@ metadata:
     # GitLab Integration
     gitlab.com/project-slug: ${{ values.repoSlug }}
     
-    {%- if values.repoHost != "gitlab.com" %}
-    gitlab.com/instance: ${{ values.repoHost }}
-    {%- endif %}
-
     # Kubernetes Integration
     {%- if values.kubernetesId %}
     backstage.io/kubernetes-id: ${{ values.kubernetesId }}
