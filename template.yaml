@@ -86,6 +86,7 @@ spec:
             allowedHosts:
               - gitlab.com
               - gitlab-gitlab.apps.cluster-54nb2.dynamic.redhatworkshops.io
+              - gitlab-gitlab.apps.cluster-9fvs8.dynamic.redhatworkshops.io
             requestUserCredentials:
               secretsKey: USER_OAUTH_TOKEN
           ui:help: "Owner is the Group or Username (e.g. 'my-org'). Repository is the project name (e.g. 'service-a')."
