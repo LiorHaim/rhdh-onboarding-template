@@ -83,8 +83,6 @@ spec:
           description: Select the GitLab repository to onboard.
           ui:field: RepoUrlPicker
           ui:options:
-            # allowedHosts:
-            #   - gitlab.com
             requestUserCredentials:
               secretsKey: USER_OAUTH_TOKEN
           ui:help: "Owner is the Group or Username (e.g. 'my-org'). Repository is the project name (e.g. 'service-a')."
@@ -130,13 +128,12 @@ spec:
     - title: Integrations (Optional)
       properties:
         kubernetesId:
-          title: OpenShift Resources
+          title: OpenShift Resources (Label Selector)
           type: string
-          description: Link to OpenShift resources.
+          description: "Links this component to OpenShift resources via the 'backstage.io/kubernetes-id' label."
           ui:help: |
-             The value of the `backstage.io/kubernetes-id` label.
-             **Leave empty** if this service has no OpenShift workloads.
-             Often matches the Component Name.
+             Enter the label value used on your OpenShift resources.
+             Example: If your Deployment has `labels: { 'backstage.io/kubernetes-id': 'my-app' }`, enter `my-app` here.
         
         jiraProjectKey:
           title: Jira Project Key
