@@ -8,9 +8,13 @@ metadata:
   {%- endif %}
   annotations:
     # GitLab Integration
-    gitlab.com/project-slug: ${{ values.repoUrl | replace("?owner=", "/") | replace("&repo=", "/") | split("gitlab.com/") | last | split("/") | list | slice(1) | join("/") if "gitlab.com" in values.repoUrl else values.repoUrl | replace("?owner=", "/") | replace("&repo=", "/") | split("/") | slice(-2) | join("/") }}
-    {%- if "gitlab.com" not in values.repoUrl %}
-    gitlab.com/instance: ${{ values.repoUrl | split("?") | first }}
+    # We assume repoSlug is passed pre-calculated (e.g. "gitlab.com/mygroup/myproject" or just "mygroup/myproject")
+    # But based on our logic, repoSlug passed from template is "host/group/project".
+    # The plugin expects "group/project".
+    gitlab.com/project-slug: ${{ values.repoSlug | replace(values.repoHost + "/", "") }}
+    
+    {%- if "gitlab.com" not in values.repoHost %}
+    gitlab.com/instance: ${{ values.repoHost }}
     {%- endif %}
 
     # Kubernetes Integration
