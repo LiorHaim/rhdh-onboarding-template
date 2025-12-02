@@ -84,6 +84,8 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
+              - gitlab.com
+              - gitlab-gitlab.apps.cluster-54nb2.dynamic.redhatworkshops.io
               - gitlab-gitlab.apps.cluster-9fvs8.dynamic.redhatworkshops.io
             requestUserCredentials:
               secretsKey: USER_OAUTH_TOKEN
@@ -175,6 +177,9 @@ spec:
           tags: ${{ parameters.tags }}
           lifecycle: ${{ parameters.lifecycle }}
           repoUrl: ${{ parameters.repoUrl }}
+          # We must pass pre-calculated values to the skeleton because Nunjucks 'split' is not standard
+          repoSlug: ${{ parameters.repoUrl | replace("?owner=", "/") | replace("&repo=", "/") }}
+          repoHost: ${{ parameters.repoUrl | replace("?.*", "") }}
           # API Configuration
           registerApi: ${{ parameters.registerApi }}
           apiType: ${{ parameters.apiType }}
