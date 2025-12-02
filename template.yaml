@@ -175,12 +175,11 @@ spec:
           tags: ${{ parameters.tags }}
           lifecycle: ${{ parameters.lifecycle }}
           repoUrl: ${{ parameters.repoUrl }}
-          # Fix logic: 
-          # repoUrl = "host.com?owner=foo&repo=bar"
-          # repoSlug should be "foo/bar"
-          # repoHost should be "host.com"
-          repoSlug: ${{ parameters.repoUrl | replace("?owner=", "/") | replace("&repo=", "/") | split("/") | slice(1) | join("/") }}
-          repoHost: ${{ parameters.repoUrl | split("?") | first }}
+          # Fix logic: Use Regex Replace instead of split (which is not supported in standard Nunjucks)
+          # Remove host and query start: regex "^.*\?owner=" matches from start until "?owner="
+          repoSlug: ${{ parameters.repoUrl | replace("^.*\\?owner=", "") | replace("&repo=", "/") }}
+          # Remove query params: regex "\?.*" matches "?" and everything after
+          repoHost: ${{ parameters.repoUrl | replace("\\?.*", "") }}
           # API Configuration
           registerApi: ${{ parameters.registerApi }}
           apiType: ${{ parameters.apiType }}
