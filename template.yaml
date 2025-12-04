@@ -85,8 +85,6 @@ spec:
           ui:options:
             allowedHosts:
               - gitlab-gitlab.apps.cluster-9fvs8.dynamic.redhatworkshops.io
-            allowedProviders:
-              - gitlab
             requestUserCredentials:
               secretsKey: USER_OAUTH_TOKEN
           ui:help: "Owner is the Group or Username (e.g. 'my-org'). Repository is the project name (e.g. 'service-a')."
@@ -181,7 +179,7 @@ spec:
          
           
           # Remove the host part and get the slug
-          repoSlug: ${{ (parameters.repoUrl | parseRepoUrl).owner }}/${{ (parameters.repoUrl | parseRepoUrl).repo }}
+          repoSlug: ${{ parameters.repoUrl | replace("gitlab-gitlab.apps.cluster-9fvs8.dynamic.redhatworkshops.io?owner=", "") | replace("&repo=", "/") }}
           
           # API Configuration
           registerApi: ${{ parameters.registerApi }}
