@@ -83,6 +83,8 @@ spec:
           description: Select the GitLab repository to onboard.
           ui:field: RepoUrlPicker
           ui:options:
+            allowedProviders:
+              - gitlab
             requestUserCredentials:
               secretsKey: USER_OAUTH_TOKEN
           ui:help: "Owner is the Group or Username (e.g. 'my-org'). Repository is the project name (e.g. 'service-a')."
