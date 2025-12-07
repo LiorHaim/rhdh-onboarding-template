@@ -84,7 +84,7 @@ spec:
           ui:field: RepoUrlPicker
           ui:options:
             allowedHosts:
-              - gitlab-gitlab.apps.cluster-9fvs8.dynamic.redhatworkshops.io
+              - gitlab-gitlab.apps.cluster-7z68s.dynamic.redhatworkshops.io
             requestUserCredentials:
               secretsKey: USER_OAUTH_TOKEN
           ui:help: "Owner is the Group or Username (e.g. 'my-org'). Repository is the project name (e.g. 'service-a')."
