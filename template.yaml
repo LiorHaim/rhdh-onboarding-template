@@ -41,7 +41,7 @@ spec:
           title: Owner
           type: string
           description: The team responsible for this service.
-          ui:field: OwnerPicker
+          ui:field: MyGroupsPicker
           ui:options:
             catalogFilter:
               kind: [Group]
