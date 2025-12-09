@@ -81,7 +81,8 @@ spec:
           title: Repository Location
           type: string
           description: Select the GitLab repository to onboard.
-          ui:field: RepoUrlPicker
+          #ui:field: RepoUrlPicker
+          ui:field: GitLabGroupPicker
           ui:options:
             allowedHosts:
               - gitlab-gitlab.apps.cluster-7z68s.dynamic.redhatworkshops.io
