@@ -180,7 +180,7 @@ spec:
          
           
           # Remove the host part and get the slug
-          repoSlug: ${{ parameters.repoUrl | replace("gitlab-gitlab.apps.cluster-7z68s.dynamic.redhatworkshops.io?owner=", "") | replace("&repo=", "/") }}
+          repoSlug: ${{ parameters.repoUrl | replace("gitlab-gitlab.apps.cluster-rbbgt.dynamic.redhatworkshops.io?owner=", "") | replace("&repo=", "/") }}
           
           # API Configuration
           registerApi: ${{ parameters.registerApi }}
