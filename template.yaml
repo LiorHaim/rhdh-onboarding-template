@@ -50,7 +50,7 @@ spec:
           title: System
           type: string
           description: The system this component belongs to.
-          ui:field: EntityPicker
+          ui:field: OwnedEntityPicker
           ui:options:
             catalogFilter:
               kind: System
