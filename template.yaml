@@ -70,6 +70,8 @@ spec:
           type: array
           description: Add tags to categorize this service.
           ui:field: EntityTagsPicker
+          ui:options:
+            showCounts: true
           items:
             type: string
 
